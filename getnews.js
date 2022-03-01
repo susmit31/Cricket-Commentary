@@ -25,7 +25,9 @@ const getnews = async()=>{
             console.log(team);
         });
         console.log(output.result);
+        cp.exec(`espeak -p 80 -s 140 "${output.result}"`);
     });
+    if (outputs.length==0) cp.exec(`exec ${NO_GAME}`);
     process.exit();
 }
 

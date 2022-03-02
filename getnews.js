@@ -10,7 +10,6 @@ const getnews = async()=>{
 
     outputs = await pg.evaluate(()=>{
         let matches = document.querySelectorAll('div.match-info');
-        // let teams = document.querySelectorAll('div.team');
         let bd_matches = Array.from(matches).filter(team=>team.innerText.search("BAN")!=-1);
         return bd_matches.map(game =>{
             let teams = Array.from(game.querySelectorAll('.team')).map(team=>team.innerText);
@@ -27,7 +26,7 @@ const getnews = async()=>{
         console.log(output.result);
         cp.exec(`espeak -p 80 -s 140 "${output.result}"`);
     });
-    if (outputs.length==0) cp.exec(`exec ${NO_GAME}`);
+    if (outputs.length==0) cp.exec(`espeak "${NO_GAME}"`);
     process.exit();
 }
 

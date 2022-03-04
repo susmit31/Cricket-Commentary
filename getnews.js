@@ -28,7 +28,10 @@ const getnews = async(query_country)=>{
         console.log(output.result);
         cp.exec(`espeak -p 80 -s 140 "${output.result}"`);
     });
-    if (outputs.length==0) cp.exec(`espeak "${NO_GAME}"`);
+    if (outputs.length==0) {
+	cp.exec(`espeak "${NO_GAME}"`);
+    	console.log(NO_GAME);
+    }
     process.exit();
 }
 

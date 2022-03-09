@@ -11,7 +11,11 @@ const getnews = async(query_country)=>{
 
     outputs = await pg.evaluate((country)=>{
         let matches = document.querySelectorAll('div.match-info');
-        let team_matches = Array.from(matches).filter(team=>team.innerText.search(country)!=-1);
+        let team_matches = [];
+        if (country === "ALL")
+            team_matches = Array.from(matches); 
+        else
+            team_matches = Array.from(matches).filter(team=>team.innerText.search(country)!=-1);
         return team_matches.map(game =>{
             let teams = Array.from(game.querySelectorAll('.team')).map(team=>team.innerText);
             teams = teams.map(team=>team.split('\n')).map(team=>team.filter(x=>x!="").join(" "));
@@ -26,10 +30,10 @@ const getnews = async(query_country)=>{
             console.log(team);
         });
         console.log(output.result);
-        cp.exec(`espeak -p 80 -s 140 "${output.result}"`);
+        cp.execSync(`espeak -p 80 -s 140 "${output.result}"`);
     });
     if (outputs.length==0) {
-	cp.exec(`espeak "${NO_GAME}"`);
+	    cp.exec(`espeak "${NO_GAME}"`);
     	console.log(NO_GAME);
     }
     process.exit();

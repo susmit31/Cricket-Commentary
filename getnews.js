@@ -30,6 +30,7 @@ const getnews = async(query_country)=>{
             console.log(team);
         });
         console.log(output.result);
+        console.log("-".repeat(output.result.length));
         cp.execSync(`espeak -p 80 -s 140 "${output.result}"`);
     });
     if (outputs.length==0) {
